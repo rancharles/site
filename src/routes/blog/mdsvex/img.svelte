@@ -1,7 +1,5 @@
 <script lang="ts">
-    import { Img } from "flowbite-svelte";
-
-    export let src: string, alt: string;
+	let { src, alt } = $props();
 </script>
 
-<Img { src } { alt } title = { alt } size="max-w-xl" />
+<img {src} {alt} title={alt} class="max-w-xl mx-auto rounded-md my-6" />

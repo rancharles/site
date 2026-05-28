@@ -1,7 +1,5 @@
-<script>
-    import { List } from "flowbite-svelte";
+<script lang="ts">
+	let { children } = $props();
 </script>
 
-<ol class="list-decimal list-inside space-y-1 text-gray-700 dark:text-gray-300">
-    <slot />
-</ol>
+<ol class="list-decimal list-outside ml-6 space-y-1 my-4 text-foreground/90">{@render children()}</ol>

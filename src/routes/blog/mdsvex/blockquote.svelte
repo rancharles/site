@@ -1,9 +1,7 @@
-<script>
-    import { Blockquote } from 'flowbite-svelte';
-    import { QuoteSolid } from 'flowbite-svelte-icons';
-  </script>
-  
-  <Blockquote size="xl">
-    <QuoteSolid class="w-10 h-10 text-gray-400 dark:text-gray-600" />
-    <slot />
-  </Blockquote>  
+<script lang="ts">
+	let { children } = $props();
+</script>
+
+<blockquote class="border-l-4 border-border pl-4 my-6 italic text-muted-foreground">
+	{@render children()}
+</blockquote>

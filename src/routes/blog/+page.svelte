@@ -1,64 +1,74 @@
 <script lang="ts">
-    import { Heading, A, P, Hr, Badge, Breadcrumb, BreadcrumbItem, Button, Toggle, Span } from 'flowbite-svelte';
-    import { RssSolid } from 'svelte-awesome-icons';
+	import { Rss } from '@lucide/svelte';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Button } from '$lib/components/ui/button/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
+	import {
+		Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator
+	} from '$lib/components/ui/breadcrumb/index.js';
 
-    function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
-        // Dash sanitization for Safari
-        const dateToFormat = new Date(date.replaceAll('-', '/'))
-        const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle })
-        return dateFormatter.format(dateToFormat)
-    }
+	function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
+		const dateToFormat = new Date(date.replaceAll('-', '/'));
+		return new Intl.DateTimeFormat(locales, { dateStyle }).format(dateToFormat);
+	}
 
-    export let data;
+	import { SITE } from '$lib/config.js';
+
+	let { data } = $props();
 </script>
 
 <svelte:head>
-    <link rel="alternate" type="application/atom+xml" href="/rss.xml" />
-	<meta property="og:title" content="Polarity's Blog" />
-    <meta property="og:description" content="A collection of pseudorandom thoughts" />
+	<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
+	<meta property="og:title" content="{SITE.owner.firstName}'s Blog" />
+	<meta property="og:description" content="A collection of pseudorandom thoughts" />
 </svelte:head>
 
-<div class="max-w-3xl py-8">
-    <div class="flex justify-between mb-8 space-x-2">
-        <Breadcrumb aria-label="Default breadcrumb blog">
-            <BreadcrumbItem href="/blog" home>Blog</BreadcrumbItem>
-        </Breadcrumb>
-        <Button size="xs" color="dark" outline href="/blog/category/problem-journal">Problem Solving Journal</Button>
-        <Breadcrumb class="hidden sm:inline-flex" aria-label="Default breadcrumb rss">
-            <BreadcrumbItem href="/blog/rss.xml" home>
-                <svelte:fragment slot="icon">
-                    <RssSolid size="16" class="me-2" />
-                </svelte:fragment>
-                RSS Feed
-            </BreadcrumbItem>
-        </Breadcrumb>
-    </div>
-    
-    {#each data.posts as { title, slug, description, date, categories, problems = null, journalOnly = false}}
-        {#if !journalOnly}
-            <Heading tag="h1" customSize="text-4xl font-extrabold">{ title }</Heading>
-            <P class="my-2" weight="light" color="text-gray-500 dark:text-gray-400">
-                { formatDate(date) }
-            </P>
-            {#each categories as category}
-                <Badge color="dark" class="mr-1" href={"/blog/category/" + category}>
-                    &num;{category}
-                </Badge>
-            {/each}
-            <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-                { description ?? '' }
-            </P>
-            {#if problems}
-                <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-                    <Span>Problems: </Span>
-                    {#each problems as problem, i}
-                    {i > 0 ? ' · ':''}{problem} 
-                    {/each}
-                </P>
-            {/if}
-            <A href={"/blog/post/" + slug} class="font-medium hover:underline">Read more</A>
-            <Hr class="mb-8" height="h-px" />
-        {/if}
-    {/each}
-</div>
+<div class="max-w-3xl w-full py-8">
+	<div class="flex items-center justify-between gap-4 mb-8 flex-wrap">
+		<Breadcrumb>
+			<BreadcrumbList>
+				<BreadcrumbItem>
+					<BreadcrumbPage>Blog</BreadcrumbPage>
+				</BreadcrumbItem>
+			</BreadcrumbList>
+		</Breadcrumb>
+		<div class="flex items-center gap-2">
+			<Button size="xs" variant="outline" href="/blog/category/problem-journal">
+				Problem Solving Journal
+			</Button>
+			<a href="/blog/rss.xml" class="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors" aria-label="RSS Feed">
+				<Rss class="h-3.5 w-3.5" />
+				RSS
+			</a>
+		</div>
+	</div>
 
+	{#each data.posts as { title, slug, description, date, categories, problems = null, journalOnly = false }}
+		{#if !journalOnly}
+			<div class="mb-8">
+				<h1 class="text-2xl font-serif font-bold text-foreground">{title}</h1>
+				<p class="my-1.5 text-sm text-muted-foreground">{formatDate(date)}</p>
+				<div class="flex flex-wrap gap-1 mb-3">
+					{#each categories as category}
+						<Badge variant="secondary" class="text-xs" href={'/blog/category/' + category}>
+							#{category}
+						</Badge>
+					{/each}
+				</div>
+				{#if description}
+					<p class="text-muted-foreground text-sm leading-relaxed mb-2">{description}</p>
+				{/if}
+				{#if problems}
+					<p class="text-sm text-muted-foreground mb-2">
+						<span class="font-medium text-foreground">Problems:</span>
+						{#each problems as problem, i}{i > 0 ? ' · ' : ''}{problem}{/each}
+					</p>
+				{/if}
+				<a href={'/blog/post/' + slug} class="text-sm underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">
+					Read more →
+				</a>
+			</div>
+			<Separator class="mb-8" />
+		{/if}
+	{/each}
+</div>

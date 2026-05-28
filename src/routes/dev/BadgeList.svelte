@@ -1,17 +1,19 @@
 <script lang="ts">
-	import { Indicator } from "flowbite-svelte";
-	import { HeartSolid } from "svelte-awesome-icons";
+	import { Heart } from '@lucide/svelte';
 
-    export let badges: App.Badge[];
+	let { badges }: { badges: App.Badge[] } = $props();
 </script>
 
-{#each badges as { slug, name = slug, logoColor = 'white', loved = false, color }, i}
-    <div class="relative">
-        <img alt={name} src={`https://img.shields.io/badge/-${encodeURIComponent( name
-        )}-${color}?logo=${slug}&logoColor=${logoColor}&style=for-the-badge`} /> {#if loved}
-        <Indicator placement="top-right" size="lg" color="none">
-            <HeartSolid class="text-red-700 dark:text-white" size="12" />
-        </Indicator>
-        {/if}
-    </div>
+{#each badges as { slug, name = slug, logoColor = 'white', loved = false, color }}
+	<div class="relative inline-block">
+		<img
+			alt={name}
+			src={`https://img.shields.io/badge/-${encodeURIComponent(name)}-${color}?logo=${slug}&logoColor=${logoColor}&style=for-the-badge`}
+		/>
+		{#if loved}
+			<span class="absolute -top-1.5 -right-1.5 flex h-4 w-4 items-center justify-center rounded-full bg-background">
+				<Heart class="h-2.5 w-2.5 fill-red-500 text-red-500" />
+			</span>
+		{/if}
+	</div>
 {/each}

@@ -1,58 +1,54 @@
 <script lang="ts">
-	import {
-		Avatar,
-		Badge,
-		Button,
-		ButtonGroup,
-		Tooltip,
-		Tabs,
-		TabItem,
-		Indicator
-	} from 'flowbite-svelte';
-
-	import { Heading, A, P, Span, Hr } from 'flowbite-svelte';
-	import { ArrowRightSolid } from 'svelte-awesome-icons';
-
+	import { ArrowRight } from '@lucide/svelte';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import Technologies from './Technologies.svelte';
+	import { SITE } from '$lib/config.js';
 </script>
 
-<!-- SEO -->
 <svelte:head>
 	<meta property="og:title" content="Dev" />
-	<meta property="og:description" content="Charles' software interests" />
+	<meta property="og:description" content="{SITE.owner.firstName}'s software interests" />
 </svelte:head>
 
-<div class="max-w-2xl py-8">
-	<Heading tag="h1" customSize="text-5xl font-extrabold">Software</Heading>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I am broadly interested in <Span>Deep Learning</Span> and <Span>Algorithm Design</Span>.
-	</P>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I participate in Competitive Programming. I am a ICPC World Finalist for the <A href="https://icpc.cs.ubc.ca/team#2026">UBC team</A>, and you can find me on <A href="/redirect/codeforces">Codeforces</A> and some <A href="https://clist.by/coder/polarity/">other platforms</A>.
-	</P>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I also have lots of experience with <Span>Fullstack Web Development</Span>: web frameworks, UI design, APIs, servers, auth, realtime, many DB paradigms, infrastructure design and more.
-	</P>
-	<Hr class="my-8" height="h-px" />
-	<Heading tag="h4" customSize="text-4xl font-extrabold">Technologies</Heading>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
+<div class="max-w-2xl w-full py-8">
+	<h1 class="text-4xl font-serif font-bold text-foreground">Software</h1>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I am broadly interested in <span class="text-foreground font-medium">Deep Learning</span> and
+		<span class="text-foreground font-medium">Algorithm Design</span>.
+	</p>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I participate in Competitive Programming. I am a ICPC World Finalist for the
+		<a href="https://icpc.cs.ubc.ca/team#2026" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">UBC team</a>,
+		and you can find me on
+		<a href="/redirect/codeforces" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">Codeforces</a>
+		and some
+		<a href="https://clist.by/coder/polarity/" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">other platforms</a>.
+	</p>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I also have lots of experience with <span class="text-foreground font-medium">Fullstack Web Development</span>:
+		web frameworks, UI design, APIs, servers, auth, realtime, many DB paradigms, infrastructure design and more.
+	</p>
+
+	<Separator class="my-8" />
+
+	<h2 class="text-2xl font-serif font-semibold text-foreground">Technologies</h2>
+	<p class="my-4 text-muted-foreground leading-relaxed">
 		Some of the notable technologies I've worked with. Personal favorites are hearted!
-	</P>
+	</p>
 
 	<Technologies />
-	<Hr class="my-8" height="h-px" />
-	<Heading tag="h4" customSize="text-4xl font-extrabold">Projects</Heading>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I have developed many software projects for fun. 
-        
-        <!-- I'm currently working on <A href="https://volympiad.org">Virtual Olympiad</A>: Hosted platforms, APIs and tools for Science Olympiads. -->
-		<A
+
+	<Separator class="my-8" />
+
+	<h2 class="text-2xl font-serif font-semibold text-foreground">Projects</h2>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I have developed many software projects for fun.
+		<a
 			href="/projects"
-			textColor="text-blue-600 dark:text-blue-500"
-			aClass="inline-flex spacing gap-x-1 items-center font-medium  hover:underline"
+			class="inline-flex items-center gap-1 text-foreground underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors"
 		>
 			View my projects
-			<ArrowRightSolid size="16" />
-		</A>
-	</P>
+			<ArrowRight class="h-3.5 w-3.5" />
+		</a>
+	</p>
 </div>

@@ -1,0 +1,321 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+/* Sans-serif body font */
+@import "@fontsource-variable/inter";
+
+/* ─── Anthropic Serif Text ─────────────────────────────────────────────────
+   Active serif font used for headings and serif elements throughout the site.
+   Source: /static/fonts/AnthropicSerif-Text-*.otf
+   ──────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Light-Static.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-LightItalic-Static.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Regular-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-RegularItalic-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Medium-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-MediumItalic-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Semibold-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-SemiboldItalic-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Bold-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-BoldItalic-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-Extrabold-Static.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Text";
+  src: url("/fonts/AnthropicSerif-Text-ExtraboldItalic-Static.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── Anthropic Serif Display ──────────────────────────────────────────────
+   Hosted for future use (larger headings, hero text, etc.).
+   To use: apply class="font-display" or set --font-serif to
+   "Anthropic Serif Display" in --font-serif below.
+   Source: /static/fonts/AnthropicSerif-Display-*.otf
+   ──────────────────────────────────────────────────────────────────────── */
+
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Light-Static.otf") format("opentype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-LightItalic-Static.otf") format("opentype");
+  font-weight: 300;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Regular-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-RegularItalic-Static.otf") format("opentype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Medium-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-MediumItalic-Static.otf") format("opentype");
+  font-weight: 500;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Semibold-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-SemiboldItalic-Static.otf") format("opentype");
+  font-weight: 600;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Bold-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-BoldItalic-Static.otf") format("opentype");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-Extrabold-Static.otf") format("opentype");
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Anthropic Serif Display";
+  src: url("/fonts/AnthropicSerif-Display-ExtraboldItalic-Static.otf") format("opentype");
+  font-weight: 800;
+  font-style: italic;
+  font-display: swap;
+}
+
+/* ─── Claude theme — from tweakcn.com ─────────────────────────────────── */
+@layer base {
+  :root {
+    --background: #faf9f5;
+    --foreground: #3d3929;
+    --card: #faf9f5;
+    --card-foreground: #141413;
+    --popover: #ffffff;
+    --popover-foreground: #28261b;
+    --primary: #c96442;
+    --primary-foreground: #ffffff;
+    --secondary: #e9e6dc;
+    --secondary-foreground: #535146;
+    --muted: #ede9de;
+    --muted-foreground: #83827d;
+    --accent: #e9e6dc;
+    --accent-foreground: #28261b;
+    --destructive: #141413;
+    --destructive-foreground: #ffffff;
+    --border: #dad9d4;
+    --input: #b4b2a7;
+    --ring: #c96442;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: #262624;
+    --foreground: #c3c0b6;
+    --card: #262624;
+    --card-foreground: #faf9f5;
+    --popover: #30302e;
+    --popover-foreground: #e5e5e2;
+    --primary: #d97757;
+    --primary-foreground: #ffffff;
+    --secondary: #faf9f5;
+    --secondary-foreground: #30302e;
+    --muted: #1b1b19;
+    --muted-foreground: #b7b5a9;
+    --accent: #1a1915;
+    --accent-foreground: #f5f4ee;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: #3e3e38;
+    --input: #52514a;
+    --ring: #d97757;
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  /* Fonts
+     To switch to Display font for headings: change --font-serif to
+     "Anthropic Serif Display" or use class="font-display" directly */
+  --font-sans: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Anthropic Serif Text", ui-serif, Georgia, serif;
+  --font-display: "Anthropic Serif Display", ui-serif, Georgia, serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --breakpoint-xs: 360px;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans);
+}
+
+pre {
+  min-width: fit-content;
+}
+
+/* KaTeX fraction line fix */
+span.frac-line {
+  border-color: #83827d;
+}
+.dark span.frac-line {
+  border-color: #b7b5a9;
+}
+
+/* Removes blockquote font adjustment from KaTeX */
+blockquote {
+  font-weight: inherit !important;
+  font-size: inherit !important;
+}
+
+/* EDIT: blockquote custom styling (remark plugin) */
+.edit-blockquote,
+.edit-blockquote + .math {
+  font-weight: bold;
+  color: rgb(200 30 30);
+}
+.dark .edit-blockquote,
+.dark .edit-blockquote + .math {
+  color: rgb(240 82 82);
+}
+
+a:has(.edit-blockquote) {
+  text-decoration: underline;
+}
+a:has(.edit-blockquote):hover {
+  text-decoration: none;
+}
+
+ol > li {
+  margin-bottom: 1rem;
+}

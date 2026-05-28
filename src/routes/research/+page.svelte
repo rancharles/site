@@ -1,214 +1,62 @@
 <script lang="ts">
-	import {
-		Avatar,
-		Badge,
-		Button,
-		ButtonGroup,
-		Tooltip,
-		Tabs,
-		TabItem,
-		Indicator,
-		Timeline,
-		TimelineItem,
-
-		List,
-
-		Li
-
-
-	} from 'flowbite-svelte';
-
-	import { Heading, A, P, Span, Hr } from 'flowbite-svelte';
-	import {
-		ArrowRightSolid,
-		CheckSolid,
-		MedalSolid,
-		StarSolid,
-		TrophySolid
-	} from 'svelte-awesome-icons';
-
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import Achievements from './Achievements.svelte';
 
+	import { SITE } from '$lib/config.js';
+
 	const achievements: App.Achievement[] = [
-        {
-			title: '11th Place, ICPC NA Championship',
-			date: '2026 March',
-			icon: MedalSolid
-		},
-        {
-			title: '3rd Place, ICPC NA West Regional',
-			date: '2025 November',
-			icon: MedalSolid
-		},
-        {
-			title: 'Putnam Competition Top 200',
-			date: '2024 December',
-			icon: MedalSolid
-		},
-		// {
-		// 	title: 'ICPC British Columbia Bronze',
-		// 	date: '2024 November',
-		// 	icon: MedalSolid
-		// },
-		{
-			title: 'Canadian Open Math Competition Champion',
-			date: '2023 October',
-			icon: TrophySolid
-		},/**
-		{
-			title: 'CMS Olympiad Winter Camp Invitee',
-			date: '2023 December',
-			icon: TrophySolid,
-			description:
-				'Canadian MOP'
-		},
-		{
-			title: 'Canadian Senior Math Competition Champion',
-			date: '2023 December',
-			icon: TrophySolid,
-			// description:
-			// 	'Sillied this award the year before'
-		},
-		{
-			title: 'AMC12 130.5',
-			date: '2023 November',
-			icon: MedalSolid,
-			description:
-				'Rip leaks'
-		},
-		{
-			title: '1570 on the SAT',
-			date: '2023 May',
-			icon: CheckSolid,
-		},
-		{
-			title: '5 on Physics C: E&M',
-			date: '2023 May',
-			icon: CheckSolid
-		},
-		{
-			title: '5 on Physics C: Mechanics',
-			date: '2023 May',
-			icon: CheckSolid
-		},
-		{
-			title: 'IYPT Physics World Cup National Finalist',
-			date: '2023 April',
-			icon: MedalSolid
-		},
-		{
-			title: 'Ontario Math Competition Champion',
-			date: '2023 March',
-			icon: MedalSolid,
-		},
-		{
-			title: '2x Canadian Math Olympiad Qualifier',
-			date: '2023 February',
-			icon: MedalSolid,
-		},
-		{
-			title: 'CSMC Group II',
-			date: '2022 November',
-			icon: MedalSolid,
-			description:
-				'Sillied part A, or would\'ve been Group I'
-		},
-		{
-			title: 'AMC12 123',
-			date: '2022 November',
-			icon: MedalSolid,
-			description:
-				'3 points away from DHR'
-		},
-		{
-			title: 'NanoMath FMM 2nd Place',
-			date: '2022 October',
-			icon: MedalSolid
-		},
-		{
-			title: 'CMS Summer Olympiad Training Camp Invitee',
-			date: '2022 August',
-			icon: TrophySolid
-		},
-		{
-			title: 'Canadian Math Olympiad Top Quartile',
-			date: '2022 March',
-			icon: MedalSolid
-		},
-		{
-			title: '5 on AP Calc BC',
-			date: '2021 May',
-			icon: CheckSolid
-		},
-		{
-			title: 'AIME 8/15',
-			date: '2021 March',
-			icon: MedalSolid
-		},
-		{
-			title: 'AMC10 118.5',
-			date: '2020 January',
-			icon: MedalSolid,
-			description: 'This first AMC10 attempt in 8th grade is my best...'
-		}*/
+		{ title: '11th Place, ICPC NA Championship', date: '2026 March' },
+		{ title: '3rd Place, ICPC NA West Regional', date: '2025 November' },
+		{ title: 'Putnam Competition Top 200', date: '2024 December' },
+		{ title: 'Canadian Open Math Competition Champion', date: '2023 October' }
 	];
 </script>
 
-<!-- SEO -->
 <svelte:head>
 	<meta property="og:title" content="Research" />
-	<meta property="og:description" content="Charles' research interests" />
+	<meta property="og:description" content="{SITE.owner.firstName}'s research interests" />
 </svelte:head>
 
-<div class="max-w-2xl py-8">
-	<Heading tag="h1" customSize="text-5xl font-extrabold">Research</Heading>
-    <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I am broadly interested in <Span>Deep Learning</Span> and <Span>Algorithm Design</Span>. In pure mathematics I am also interested in Combinatorics and Number Theory.
-	</P>
+<div class="max-w-2xl w-full py-8">
+	<h1 class="text-4xl font-serif font-bold text-foreground">Research</h1>
 
-    <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-        Currently I am doing some research in extremal combinatorics, on Erdos-Ko-Rado type problems and generalizations to finite vector spaces.
-	</P>
-    <Heading tag="h2" customSize="text-2xl font-extrabold">Coursework</Heading>
-    <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		<List class="list-disc">
-            <Li>Multivariate Calculus, Differential Equations</Li>
-            <Li>Linear, Group, Ring, Module Algebra</Li>
-            <Li>Real, Complex Analysis</Li>
-            <Li>Number Theory</Li>
-            <Li>Graph Theory</Li>
-            <Li>Algorithm Design and Data Structures</Li>
-            <Li>Advanced Machine Learning</Li>
-            <Li>Theory of Computation</Li>
-        </List>
-	</P>
-    <!-- <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		As well as some interests of mine which I have briefly explored on my own:
-	</P>
-    <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		<List class="list-disc">
-            <Li>Sieve Theory</Li>
-            <Li>Additive Combinatorics</Li>
-        </List>
-	</P> -->
-	<Heading tag="h2" customSize="text-xl font-extrabold">Competitions</Heading>
-	<P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I participate in Competitive Programming. I am a ICPC World Finalist for the <A href="https://icpc.cs.ubc.ca/team#2026">UBC team</A>, and you can find me on <A href="/redirect/codeforces">Codeforces</A> and some <A href="https://clist.by/coder/polarity/">other platforms</A>.
-	</P>
-	<!-- <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		In high school, I used to participate in <Span underline>Math Olympiads</Span>. My subtopic preference was A > N = C >>> G. I had an AoPS account under <A
-			href="https://aops.com/community/user/polarity">polarity</A
-		>.
-	</P> -->
-	<!-- <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		I did a bit of <Span>Physics Research</Span> for the
-		<A href="https://www.caypt.org/">Canadian Young Physicists Tournament</A>. My focus was on fluid
-		dynamics, researching phenomena relating to fractals patterns in alcohol-ink droplets.
-	</P> -->
-	<!--<Hr class="my-8" height="h-px" />-->
-	<!-- <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-		My most notable competition achievements:
-	</P> -->
-	<div id="achievements" />
-    <Achievements {achievements} />
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I am broadly interested in <span class="text-foreground font-medium">Deep Learning</span> and
+		<span class="text-foreground font-medium">Algorithm Design</span>. In pure mathematics I am also
+		interested in Combinatorics and Number Theory.
+	</p>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		Currently I am doing some research in extremal combinatorics, on Erdős–Ko–Rado type problems
+		and generalizations to finite vector spaces.
+	</p>
+
+	<Separator class="my-6" />
+
+	<h2 class="text-xl font-serif font-semibold text-foreground mb-3">Coursework</h2>
+	<ul class="list-disc list-outside ml-5 space-y-1 text-muted-foreground">
+		<li>Multivariate Calculus, Differential Equations</li>
+		<li>Linear, Group, Ring, Module Algebra</li>
+		<li>Real, Complex Analysis</li>
+		<li>Number Theory</li>
+		<li>Graph Theory</li>
+		<li>Algorithm Design and Data Structures</li>
+		<li>Advanced Machine Learning</li>
+		<li>Theory of Computation</li>
+	</ul>
+
+	<Separator class="my-6" />
+
+	<h2 class="text-xl font-serif font-semibold text-foreground mb-3">Competitions</h2>
+	<p class="my-4 text-muted-foreground leading-relaxed">
+		I participate in Competitive Programming. I am a ICPC World Finalist for the
+		<a href="https://icpc.cs.ubc.ca/team#2026" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">UBC team</a>,
+		and you can find me on
+		<a href="/redirect/codeforces" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">Codeforces</a>
+		and some
+		<a href="https://clist.by/coder/polarity/" class="underline underline-offset-4 decoration-muted-foreground hover:decoration-foreground transition-colors">other platforms</a>.
+	</p>
+
+	<div id="achievements">
+		<Achievements {achievements} />
+	</div>
 </div>

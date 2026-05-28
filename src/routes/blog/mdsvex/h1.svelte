@@ -1,7 +1,5 @@
-<script>
-    import { Heading } from "flowbite-svelte";
+<script lang="ts">
+	let { children } = $props();
 </script>
 
-<Heading tag="h1" customSize="text-4xl font-bold my-4">
-    <slot />
-</Heading>
+<h1 class="text-3xl font-serif font-bold my-6 text-foreground">{@render children()}</h1>
