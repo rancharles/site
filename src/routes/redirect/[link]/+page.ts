@@ -1,24 +1,25 @@
 import { error, redirect } from '@sveltejs/kit';
+import { SITE } from '$lib/config.js';
 
-const redirectMap: {[key: string]: string} = {
-    'github': 'https://github.com/rancharles',
-    'youtube': 'https://www.youtube.com/channel/UClZN6f71XImxoznqJ4jPknw',
-    'instagram': 'https://www.instagram.com/rancharles/',
-    'discord': 'discord://-/users/365886855469727745',
-    'steam': 'https://steamcommunity.com/id/cranberry128/',
-    'email': 'mailto:charles.ran9@gmail.com',
-    'shadertoy': 'https://www.shadertoy.com/user/IAmLegend',
-    'resume': '/resume.pdf',
-    'dmoj': 'https://dmoj.ca/user/polarity',
-    'codeforces': 'https://codeforces.com/profile/cran',
-    'linkedin': 'https://www.linkedin.com/in/charlesran/',
-    'gallery': 'https://gallery.charlesran.com'
+const redirectMap: { [key: string]: string } = {
+	github:     SITE.social.github,
+	youtube:    SITE.social.youtube,
+	instagram:  SITE.social.instagram,
+	discord:    SITE.social.discord.url,
+	steam:      SITE.social.steam,
+	email:      `mailto:${SITE.owner.email}`,
+	shadertoy:  SITE.social.shadertoy,
+	codeforces: SITE.social.codeforces,
+	dmoj:       SITE.social.dmoj,
+	linkedin:   SITE.social.linkedin,
+	gallery:    SITE.social.gallery,
+	resume:     SITE.redirects.resume,
 };
 
-export function load({ params }){
-    if (params?.link in redirectMap){
-        throw redirect(308, redirectMap[params.link as string]);
-    }
+export function load({ params }) {
+	if (params?.link in redirectMap) {
+		redirect(308, redirectMap[params.link as string]);
+	}
 
-    throw error(404, 'Redirect Not Found');
+	error(404, 'Redirect Not Found');
 }

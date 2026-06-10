@@ -1,64 +1,64 @@
-import preprocess from 'svelte-preprocess';
 import adapter from '@sveltejs/adapter-auto';
-import { vitePreprocess } from '@sveltejs/kit/vite';
-import { mdsvex, escapeSvelte } from 'mdsvex'
-import { getHighlighter } from 'shiki';
-import rehypeKatexSvelte from "rehype-katex-svelte";
+import { mdsvex, escapeSvelte } from 'mdsvex';
+import { createHighlighter } from 'shiki';
+import rehypeKatexSvelte from 'rehype-katex-svelte';
 import remarkMath from 'remark-math';
 import customBlockquotes from './customMarkdown.js';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+let highlighterInstance = null;
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
-	// for more information about preprocessors
 	extensions: ['.svelte', '.md', '.svx'],
 	preprocess: [
-		vitePreprocess(),
 		mdsvex({
-			layout: 'src/routes/blog/mdsvex/mdsvex.svelte',
+			layout: path.resolve(__dirname, 'src/routes/blog/mdsvex/mdsvex.svelte'),
 			extensions: ['.md', '.svx'],
 			remarkPlugins: [
 				remarkMath,
-                customBlockquotes
+				customBlockquotes
 			],
 			rehypePlugins: [
-				[rehypeKatexSvelte, { 
-                    macros: {
-                        "\\ceil": "\\left\\lceil #1 \\right\\rceil",
-                        "\\floor": "\\left\\lfloor #1 \\right\\rfloor",
-                        "\\nullspace": "\\operatorname{null}",
-                        "\\vspan": "\\operatorname{span}",
-                        "\\range": "\\operatorname{range}",
-                        "\\rank": "\\operatorname{rank}",
-                        "\\abs": "\\left\\lvert #1 \\right\\rvert",
-                        "\\norm": "\\left\\lVert #1 \\right\\rVert",
-                        "\\paren": "\\left( #1 \\right)",
-                        "\\sign": "\\operatorname{sgn}",
-                        "\\bigO": "\\mathcal{O}"
-                    }
-                }]
+				[rehypeKatexSvelte, {
+					macros: {
+						"\\ceil": "\\left\\lceil #1 \\right\\rceil",
+						"\\floor": "\\left\\lfloor #1 \\right\\rfloor",
+						"\\nullspace": "\\operatorname{null}",
+						"\\vspan": "\\operatorname{span}",
+						"\\range": "\\operatorname{range}",
+						"\\rank": "\\operatorname{rank}",
+						"\\abs": "\\left\\lvert #1 \\right\\rvert",
+						"\\norm": "\\left\\lVert #1 \\right\\rVert",
+						"\\paren": "\\left( #1 \\right)",
+						"\\sign": "\\operatorname{sgn}",
+						"\\bigO": "\\mathcal{O}"
+					}
+				}]
 			],
 			highlight: {
 				highlighter: async (code, lang = 'text') => {
-					const highlighter = await getHighlighter({
-						themes: ['github-dark'],
-						langs: ['c', 'cpp', 'glsl', 'julia', 'python', 'html', 'javascript', 'typescript']
-					})
-					await highlighter.loadLanguage('c', 'cpp', 'glsl', 'julia', 'python', 'html', 'javascript', 'typescript')
-					const html = escapeSvelte(highlighter.codeToHtml(code, { lang, theme: 'github-dark' }))
-					return `{@html \`${html}\` }`
+					if (!highlighterInstance) {
+						highlighterInstance = await createHighlighter({
+							themes: ['github-dark'],
+							langs: ['c', 'cpp', 'glsl', 'julia', 'python', 'html', 'javascript', 'typescript', 'text']
+						});
+					}
+					const safeLang = highlighterInstance.getLoadedLanguages().includes(lang) ? lang : 'text';
+					const html = escapeSvelte(highlighterInstance.codeToHtml(code, { lang: safeLang, theme: 'github-dark' }));
+					return `{@html \`${html}\` }`;
 				}
 			}
-		}),
-		preprocess({
-			postcss: true
 		})
 	],
 
 	kit: {
 		adapter: adapter(),
 		prerender: {
-            handleHttpError: ({ path, referrer, message }) => {
+			handleHttpError: ({ path, referrer, message }) => {
 				const redirects = [
 					'/redirect/github',
 					'/redirect/youtube',
@@ -69,15 +69,13 @@ const config = {
 					'/redirect/shadertoy',
 				];
 
-                // ignore deliberate link to redirects
-                if (redirects.includes(path)) {
-                    return;
-                }
+				if (redirects.includes(path)) {
+					return;
+				}
 
-                // otherwise fail the build
-                throw new Error(message);
-            }
-        }
+				throw new Error(message);
+			}
+		}
 	}
 };
 

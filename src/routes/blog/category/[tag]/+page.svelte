@@ -1,79 +1,77 @@
 <script lang="ts">
-    import { Heading, A, P, Hr, Badge, Breadcrumb, BreadcrumbItem, Span } from 'flowbite-svelte';
-    import { TagSolid } from "flowbite-svelte-icons";
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 
-    function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
-        // Dash sanitization for Safari
-        const dateToFormat = new Date(date.replaceAll('-', '/'))
-        const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle })
-        return dateFormatter.format(dateToFormat)
-    }
+	function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
+		const dateToFormat = new Date(date.replaceAll('-', '/'));
+		return new Intl.DateTimeFormat(locales, { dateStyle }).format(dateToFormat);
+	}
 
-    function formatTag(s: string) {
-        if (s.toLowerCase() == 'problem-journal'){
-            return 'Problem Solving Journal';
-        }
-        if (s.toLowerCase() == 'cs'){
-            return 'CS';
-        }
-        return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
-    }
+	function formatTag(s: string) {
+		if (s.toLowerCase() === 'problem-journal') return 'Problem Solving Journal';
+		if (s.toLowerCase() === 'cs') return 'CS';
+		return s.charAt(0).toUpperCase() + s.slice(1).toLowerCase();
+	}
 
-    export let data;
+	import { SITE } from '$lib/config.js';
+
+	let { data } = $props();
+
+	let hoveredIndex = $state(-1);
+	let visiblePosts = $derived(
+		(data.posts ?? []).filter((p: Blog.Post) => data.tag === 'problem-journal' || !p.journalOnly)
+	);
 </script>
 
 <svelte:head>
-    <link rel="alternate" type="application/atom+xml" href="/rss.xml" />
-	<meta property="og:title" content="Polarity's Blog" />
-    <meta property="og:description" content={"A collection of pseudorandom thoughts in " + formatTag(data.tag)} />
+	<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
+	<title>{formatTag(data.tag)} | {SITE.name}</title>
+	<meta property="og:url" content="{SITE.url}/blog/category/{data.tag}" />
+	<meta property="og:title" content="{formatTag(data.tag)} | {SITE.name}" />
+	<meta property="og:description" content={"Posts by " + SITE.owner.name + " tagged " + formatTag(data.tag) + "."} />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
-<div class="max-w-3xl w-full py-8">
-    {#if data.posts?.length}
-        <Breadcrumb aria-label="Default breadcrumb example" class="mb-8">
-            <BreadcrumbItem href="/blog" home>
-                <svelte:fragment slot="icon">
-                    <TagSolid class="w-4 h-4 me-2" />
-                </svelte:fragment>
-                Blog
-            </BreadcrumbItem>
-            <BreadcrumbItem href={"/blog/category/" + data.tag}>
-                {formatTag(data.tag)}
-            </BreadcrumbItem>
-        </Breadcrumb>
-        
-        
-        {#each data.posts as { title, slug, description, date, categories, problems = null, journalOnly }}
-            {#if data.tag == 'problem-journal' || !journalOnly }
-                <Heading tag="h1" customSize="text-4xl font-extrabold">{ title }</Heading>
-                <P class="my-2" weight="light" color="text-gray-500 dark:text-gray-400">
-                    { formatDate(date) }
-                </P>
-                {#each categories as category}
-                    <Badge color="dark" class="mr-1" href={"/blog/category/" + category}>
-                        &num;{category}
-                    </Badge>
-                {/each}
-                <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-                    { description ?? '' }
-                </P>
-                {#if problems}
-                    <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-                        <Span>Problems: </Span>
-                        {#each problems as problem, i}
-                        {i > 0 ? ' · ':''}{problem} 
-                        {/each}
-                    </P>
-                {/if}
-                <A href={"/blog/post/" + slug} class="font-medium hover:underline">Read more</A>
-                <Hr class="mb-8" height="h-px" />
-            {/if}
-        {/each}
+<div class="py-8">
+	<div class="flex items-baseline justify-between mb-8">
+		<h1 class="text-4xl font-display font-semibold text-foreground">{formatTag(data.tag)}</h1>
+		<a href="/blog" class="text-sm text-muted-foreground hover:text-foreground transition-colors shrink-0">← All posts</a>
+	</div>
 
-    {:else}
-        <P class="my-2" weight="light" color="text-gray-500 dark:text-gray-400">
-            No category "{formatTag(data.tag)}" found.
-        </P>
-        <A href={"/blog"} class="font-medium hover:underline">Back to blog home</A>
+	{#if visiblePosts.length}
+		{#each visiblePosts as { title, slug, description, date, categories, problems = null }, i}
+			<Separator class="transition-[margin-left,width] duration-150 {hoveredIndex >= 0 && (hoveredIndex === i || hoveredIndex === i - 1) ? '-ml-4 !w-[calc(100%+2rem)]' : ''}" />
+			<div
+				class="relative isolate py-7 group"
+				role="article"
+				onmouseenter={() => hoveredIndex = i}
+				onmouseleave={() => hoveredIndex = -1}
+			>
+				<div class="absolute inset-y-0 -inset-x-4 bg-muted/40 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none -z-10"></div>
+				<h2 class="text-xl font-serif font-medium text-foreground mb-1.5">{title}</h2>
+				<p class="text-sm text-muted-foreground mb-2">{formatDate(date)}</p>
+				<div class="flex flex-wrap gap-1 mb-3">
+					{#each categories as category}
+						<Badge variant="secondary" class="text-xs" href={'/blog/category/' + category}>
+							#{category}
+						</Badge>
+					{/each}
+				</div>
+				{#if description}
+					<p class="text-muted-foreground text-sm leading-relaxed mb-3">{description}</p>
+				{/if}
+				{#if problems}
+					<p class="text-sm text-muted-foreground mb-3">
+						<span class="font-medium text-foreground">Problems:</span>
+						{#each problems as problem, j}{j > 0 ? ' · ' : ''}{problem}{/each}
+					</p>
+				{/if}
+				<a href={'/blog/post/' + slug} class="text-sm text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">
+					Read more →
+				</a>
+			</div>
+		{/each}
+	{:else}
+		<p class="text-muted-foreground text-sm">No posts in this category yet.</p>
 	{/if}
 </div>

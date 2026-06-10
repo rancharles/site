@@ -1,7 +1,5 @@
-<script>
-    import { P } from "flowbite-svelte";
+<script lang="ts">
+	let { children } = $props();
 </script>
 
-<P class="my-4" weight="light" color="text-gray-800 dark:text-gray-200">
-    <slot />
-</P>
+<p class="my-4 leading-relaxed text-foreground/90">{@render children()}</p>

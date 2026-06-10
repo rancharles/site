@@ -1,94 +1,61 @@
 <script lang="ts">
-	import '../app.postcss';
-	import '../app.scss';
-	import {
-		Navbar,
-		NavBrand,
-		NavLi,
-		NavUl,
-		NavHamburger,
-		Dropdown,
-		DropdownItem,
-		Chevron,
-		Button,
-		DropdownDivider,
-		DarkMode,
-		Footer,
-		FooterLinkGroup,
-		FooterLink,
-		FooterBrand,
-		FooterIcon,
-		FooterCopyright,
-		Tooltip
-	} from 'flowbite-svelte';
+	import '../app.css';
+	import 'overlayscrollbars/overlayscrollbars.css';
+	import { onMount } from 'svelte';
+	import { OverlayScrollbars } from 'overlayscrollbars';
+	import { ModeWatcher } from 'mode-watcher';
+	import Navbar from '$lib/components/Navbar.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import { SITE } from '$lib/config.js';
 
-	import { copyText } from 'svelte-copy';
+	let { children } = $props();
 
-	import { GithubBrand, DiscordBrand, YoutubeBrand, InstagramBrand, SteamBrand, LinkedinBrand, EnvelopeSolid } from 'svelte-awesome-icons';
+	onMount(() => {
+		const instance = OverlayScrollbars(
+			{
+				target: document.body,
+				cancel: { nativeScrollbarsOverlaid: false, body: false }
+			},
+			{
+				scrollbars: {
+					theme: 'os-theme-firefox',
+					autoHide: 'never'
+				}
+			}
+		);
+
+		const html = document.documentElement;
+		let timer: ReturnType<typeof setTimeout>;
+
+		const onActivity = () => {
+			html.classList.add('scrollbar-visible');
+			clearTimeout(timer);
+			timer = setTimeout(() => html.classList.remove('scrollbar-visible'), 1200);
+		};
+
+		const events = ['mousemove', 'keydown', 'wheel', 'pointerdown', 'touchstart'] as const;
+		events.forEach(e => window.addEventListener(e, onActivity, { passive: true }));
+
+		return () => {
+			instance?.destroy();
+			events.forEach(e => window.removeEventListener(e, onActivity));
+			clearTimeout(timer);
+		};
+	});
 </script>
 
-<!-- SEO -->
 <svelte:head>
-	<meta property="og:site_name" content="Charles Ran" />
+	<meta property="og:site_name" content={SITE.name} />
 </svelte:head>
 
-<div class="app relative flex flex-col h-screen">
-	<Navbar let:hidden let:toggle>
-		<NavBrand href="/">
-			<img src="/mango_v3.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" />
-		</NavBrand>
-		<div class="flex md:order-1">
-			<DarkMode />
-			<NavHamburger on:click={toggle} />
+<ModeWatcher />
+
+<div class="flex min-h-screen flex-col bg-background text-foreground">
+	<Navbar />
+	<main class="flex flex-1 flex-col w-full">
+		<div class="mx-auto w-full max-w-3xl px-4">
+			{@render children()}
 		</div>
-		<NavUl {hidden}>
-			<NavLi href="/about">About</NavLi>
-			<NavLi href="/dev">Dev</NavLi>
-			<NavLi href="/research">Research</NavLi>
-			<NavLi href="/projects">Projects</NavLi>
-			<NavLi href="/blog">Blog</NavLi>
-        	<NavLi href="/redirect/gallery">Gallery</NavLi>
-			<NavLi href="/redirect/resume">Resume</NavLi>
-		</NavUl>
-	</Navbar>
-	<div class="grow overflow-auto">
-		<main class="flex flex-col p-4 items-center w-full min-h-full h-fit">
-			<slot />
-		</main>
-		<Footer class="p-6">
-			<span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">
-				© 2020-{new Date().getFullYear()} • Last Updated 2026-03-24
-			</span>
-			<div class="flex mt-4 space-x-6 sm:justify-center sm:mt-0">
-				<FooterIcon href="/redirect/github" class="text-gray-400 hover:text-gray-900">
-					<GithubBrand size="20"/>
-				</FooterIcon>
-				<FooterIcon href="/redirect/youtube" class="text-gray-400 hover:text-gray-900">
-					<YoutubeBrand size="20"/>
-				</FooterIcon>
-				<!--<FooterIcon href="/redirect/instagram" class="text-gray-400 hover:text-gray-900">
-					<InstagramBrand size="20"/>
-				</FooterIcon>
-				-->
-				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<span on:click={async () => await navigator.clipboard.writeText('tropicomango')}>
-					<FooterIcon href="#" class="text-gray-400 hover:text-gray-900">
-						<DiscordBrand size="20"/>
-						<Tooltip>
-							@tropicomango
-						</Tooltip>
-					</FooterIcon>
-				</span>
-				<!-- <FooterIcon href="/redirect/steam" class="text-gray-400 hover:text-gray-900">
-					<SteamBrand size="20"/>
-				</FooterIcon> -->
-				<FooterIcon href="/redirect/linkedin" class="text-gray-400 hover:text-gray-900">
-					<LinkedinBrand size="20"/>
-				</FooterIcon>
-				<FooterIcon href="/redirect/email" class="text-gray-400 hover:text-gray-900">
-					<EnvelopeSolid size="20"/>
-				</FooterIcon>
-			</div>
-		</Footer>
-	</div>
+	</main>
+	<Footer />
 </div>

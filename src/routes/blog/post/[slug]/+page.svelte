@@ -1,57 +1,68 @@
 <script lang="ts">
-    import { Heading, A, P, Hr, Badge, Breadcrumb, BreadcrumbItem, Span } from 'flowbite-svelte';
-    function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
-        // Dash sanitization for Safari
-        const dateToFormat = new Date(date.replaceAll('-', '/'))
-        const dateFormatter = new Intl.DateTimeFormat(locales, { dateStyle })
-        return dateFormatter.format(dateToFormat)
-    }
+	import { SITE } from '$lib/config.js';
+	import { Badge } from '$lib/components/ui/badge/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
+	import {
+		Breadcrumb, BreadcrumbList, BreadcrumbItem, BreadcrumbLink, BreadcrumbPage, BreadcrumbSeparator
+	} from '$lib/components/ui/breadcrumb/index.js';
 
-	export let data;
+	function formatDate(date: string, dateStyle: Blog.DateStyle = 'medium', locales = 'en') {
+		const dateToFormat = new Date(date.replaceAll('-', '/'));
+		return new Intl.DateTimeFormat(locales, { dateStyle }).format(dateToFormat);
+	}
 
-    const { title, date, description, categories, slug, problems = null, published } = data.meta;
+	let { data } = $props();
+	let { title, date, description, categories, slug, problems = null, published } = $derived(data.meta);
 </script>
 
-<!-- SEO -->
 <svelte:head>
-	<title>{title}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" crossorigin="anonymous">
+	<title>{title} | {SITE.name}</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" crossorigin="anonymous" />
+	<meta property="og:url" content="{SITE.url}/blog/post/{slug}" />
 	<meta property="og:type" content="article" />
-	<meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+	<meta property="og:title" content="{title} | {SITE.name}" />
+	<meta property="og:description" content={description} />
+	<meta property="article:author" content={SITE.owner.name} />
 </svelte:head>
 
-<article class="w-full max-w-3xl py-8">
-    <Breadcrumb aria-label="Default breadcrumb example" class="mb-8">
-        <BreadcrumbItem href="/blog" home>Blog</BreadcrumbItem>
-        <BreadcrumbItem>{ title }</BreadcrumbItem>
-    </Breadcrumb>
+<article class="w-full py-8">
+	<Breadcrumb class="mb-8">
+		<BreadcrumbList>
+			<BreadcrumbItem>
+				<BreadcrumbLink href="/blog">Blog</BreadcrumbLink>
+			</BreadcrumbItem>
+			<BreadcrumbSeparator />
+			<BreadcrumbItem>
+				<BreadcrumbPage>{title}</BreadcrumbPage>
+			</BreadcrumbItem>
+		</BreadcrumbList>
+	</Breadcrumb>
 
-    <Heading tag="h1" customSize="text-4xl font-extrabold">{ title }</Heading>
-    {#if published}
-        <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-            Published { formatDate(date) }
-        </P>
-        {:else}
-        <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-            Written { formatDate(date) }, Unpublished
-        </P>
-    {/if}
-    {#each data.meta.categories as category}
-        <Badge property="article:tag" color="dark" class="mr-1" href={"/blog/category/" + category}>
-            &num;{category}
-        </Badge>
-    {/each}
-    {#if problems}
-        <P class="my-4" weight="light" color="text-gray-500 dark:text-gray-400">
-            <Span>Problems: </Span>
-            {#each problems as problem, i}
-            {i > 0 ? ' · ':''}{problem} 
-            {/each}
-        </P>
-    {/if}
-    <P class="my-4" weight="light" color="text-gray-800 dark:text-gray-200">
-        <svelte:component this={data.content} />
-    </P>
-    <Hr class="my-8" height="h-px" />
+	<h1 class="text-3xl font-serif font-semibold text-foreground">{title}</h1>
+	<p class="my-3 text-sm text-muted-foreground">
+		{#if published}
+			Published {formatDate(date)}
+		{:else}
+			Written {formatDate(date)}, Unpublished
+		{/if}
+	</p>
+	<div class="flex flex-wrap gap-1 mb-4">
+		{#each categories as category}
+			<Badge variant="secondary" class="text-xs" href={'/blog/category/' + category}>
+				#{category}
+			</Badge>
+		{/each}
+	</div>
+	{#if problems}
+		<p class="text-sm text-muted-foreground mb-4">
+			<span class="font-medium text-foreground">Problems:</span>
+			{#each problems as problem, i}{i > 0 ? ' · ' : ''}{problem}{/each}
+		</p>
+	{/if}
+
+	<div class="mt-6">
+		<data.content />
+	</div>
+
+	<Separator class="my-8" />
 </article>

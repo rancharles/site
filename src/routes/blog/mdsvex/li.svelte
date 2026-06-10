@@ -1,5 +1,5 @@
-<script>
-    import { Li } from "flowbite-svelte";
+<script lang="ts">
+	let { children } = $props();
 </script>
 
-<Li> <slot /> </Li>
+<li>{@render children()}</li>

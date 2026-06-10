@@ -1,1 +1,5 @@
-<span class="font-medium dark:text-white"><slot /></span>
+<script lang="ts">
+	let { children } = $props();
+</script>
+
+<strong class="font-semibold text-foreground">{@render children()}</strong>
