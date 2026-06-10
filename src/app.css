@@ -363,20 +363,21 @@ span.frac-line {
   overflow-wrap: break-word;
 }
 
-.blog-content .math-display,
-.blog-content .katex-display {
+.blog-content .math-display {
+  display: block;
   max-width: 100%;
   overflow-x: auto;
-  overflow-y: hidden;
+  overflow-y: visible;
   -webkit-overflow-scrolling: touch;
 }
 
 .blog-content .math-inline {
-  display: inline-block;
-  max-width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
   vertical-align: middle;
+}
+
+.blog-content .math-display > .katex-display {
+  max-width: none;
+  overflow: visible;
 }
 
 /* Removes blockquote font adjustment from KaTeX */
