@@ -17,7 +17,6 @@
 
 <svelte:head>
 	<title>{title} | {SITE.name}</title>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" crossorigin="anonymous" />
 	<meta property="og:url" content="{SITE.url}/blog/post/{slug}" />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content="{title} | {SITE.name}" />
@@ -60,7 +59,7 @@
 		</p>
 	{/if}
 
-	<div class="mt-6">
+	<div class="blog-content mt-6 min-w-0 max-w-full">
 		<data.content />
 	</div>
 

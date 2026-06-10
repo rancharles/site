@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "katex/dist/katex.min.css";
 
 /* Sans-serif body font */
 @import "@fontsource-variable/inter";
@@ -287,6 +288,8 @@
 
 html, body {
   height: 100%;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 /* OverlayScrollbars — activity-based show/hide.
@@ -344,7 +347,8 @@ body {
 }
 
 pre {
-  min-width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 /* KaTeX fraction line fix */
@@ -353,6 +357,26 @@ span.frac-line {
 }
 .dark span.frac-line {
   border-color: #b7b5a9;
+}
+
+.blog-content {
+  overflow-wrap: break-word;
+}
+
+.blog-content .math-display,
+.blog-content .katex-display {
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+.blog-content .math-inline {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  vertical-align: middle;
 }
 
 /* Removes blockquote font adjustment from KaTeX */
