@@ -17,6 +17,9 @@ export const SITE = {
 	owner: {
 		name: 'Charles Ran',
 		firstName: 'Charles',
+		lastName: 'Ran',
+		/** Primary public username (used in profile:username and similar) */
+		username: 'charlesran',
 		email: 'charles.ran9@gmail.com',
 	},
 

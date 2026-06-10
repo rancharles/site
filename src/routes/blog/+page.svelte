@@ -19,8 +19,10 @@
 <svelte:head>
 	<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
 	<title>Blog | {SITE.name}</title>
-	<meta property="og:title" content="{SITE.owner.firstName}'s Blog" />
-	<meta property="og:description" content="A collection of pseudorandom thoughts" />
+	<meta property="og:url" content="{SITE.url}/blog" />
+	<meta property="og:title" content="Blog | {SITE.name}" />
+	<meta property="og:description" content="A collection of pseudorandom thoughts by {SITE.owner.name}." />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <div class="py-8">

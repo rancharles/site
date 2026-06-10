@@ -25,9 +25,11 @@
 
 <svelte:head>
 	<link rel="alternate" type="application/atom+xml" href="/rss.xml" />
-	<title>#{data.tag} | {SITE.name}</title>
-	<meta property="og:title" content="{SITE.owner.firstName}'s Blog" />
-	<meta property="og:description" content={"A collection of pseudorandom thoughts in " + formatTag(data.tag)} />
+	<title>{formatTag(data.tag)} | {SITE.name}</title>
+	<meta property="og:url" content="{SITE.url}/blog/category/{data.tag}" />
+	<meta property="og:title" content="{formatTag(data.tag)} | {SITE.name}" />
+	<meta property="og:description" content={"Posts by " + SITE.owner.name + " tagged " + formatTag(data.tag) + "."} />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <div class="py-8">

@@ -13,11 +13,14 @@
 </script>
 
 <svelte:head>
-	<meta property="og:title" content="About" />
-	<meta property="og:description" content="About {SITE.owner.firstName}" />
+	<title>About | {SITE.name}</title>
+	<meta property="og:url" content="{SITE.url}/about" />
+	<meta property="og:title" content="About | {SITE.name}" />
+	<meta property="og:description" content="About {SITE.owner.name}" />
 	<meta property="og:type" content="profile" />
 	<meta property="profile:first_name" content={SITE.owner.firstName} />
-	<meta property="profile:last_name" content="Ran" />
+	<meta property="profile:last_name" content={SITE.owner.lastName} />
+	<meta property="profile:username" content={SITE.owner.username} />
 </svelte:head>
 
 <div class="flex flex-col items-center gap-6 max-w-2xl w-full py-8">

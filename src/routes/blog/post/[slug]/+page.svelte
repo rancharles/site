@@ -18,9 +18,11 @@
 <svelte:head>
 	<title>{title} | {SITE.name}</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" crossorigin="anonymous" />
+	<meta property="og:url" content="{SITE.url}/blog/post/{slug}" />
 	<meta property="og:type" content="article" />
-	<meta property="og:title" content={title} />
+	<meta property="og:title" content="{title} | {SITE.name}" />
 	<meta property="og:description" content={description} />
+	<meta property="article:author" content={SITE.owner.name} />
 </svelte:head>
 
 <article class="w-full py-8">

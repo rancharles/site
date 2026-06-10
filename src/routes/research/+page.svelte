@@ -14,8 +14,10 @@
 
 <svelte:head>
 	<title>Research | {SITE.name}</title>
-	<meta property="og:title" content="Research" />
-	<meta property="og:description" content="{SITE.owner.firstName}'s research interests" />
+	<meta property="og:url" content="{SITE.url}/research" />
+	<meta property="og:title" content="Research | {SITE.name}" />
+	<meta property="og:description" content="{SITE.owner.name}'s research." />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <div class="py-8">

@@ -130,8 +130,10 @@
 
 <svelte:head>
 	<title>Projects | {SITE.name}</title>
-	<meta property="og:title" content="Projects" />
-	<meta property="og:description" content="{SITE.owner.firstName}'s featured projects" />
+	<meta property="og:url" content="{SITE.url}/projects" />
+	<meta property="og:title" content="Projects | {SITE.name}" />
+	<meta property="og:description" content="{SITE.owner.name}'s featured software projects." />
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <div class="py-8">

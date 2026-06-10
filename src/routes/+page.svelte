@@ -8,12 +8,13 @@
 
 <svelte:head>
 	<title>{SITE.name}</title>
+	<meta property="og:url" content={SITE.url} />
 	<meta property="og:title" content={SITE.name} />
 	<meta property="og:description" content={SITE.description} />
 	<meta property="og:type" content="profile" />
 	<meta property="profile:first_name" content={SITE.owner.firstName} />
-	<meta property="profile:last_name" content="Ran" />
-	<meta property="profile:username" content="polarity" />
+	<meta property="profile:last_name" content={SITE.owner.lastName} />
+	<meta property="profile:username" content={SITE.owner.username} />
 </svelte:head>
 
 <div class="py-10">
