@@ -6,7 +6,7 @@
 
 export const SITE = {
 	/** Canonical public URL (no trailing slash) */
-	url: 'https://polarity.sh',
+	url: 'https://charlesran.com',
 
 	/** Short display name used in <title>, og:site_name, navbar, etc. */
 	name: 'Charles Ran',

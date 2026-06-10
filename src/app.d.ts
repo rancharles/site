@@ -31,7 +31,6 @@ declare global {
 
 		declare interface ProjectBadge {
 			name: string;
-			color?: string;
 		}
 
 		declare interface Project {

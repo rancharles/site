@@ -1,3 +1,4 @@
+<!-- Unused — archived from /dev page -->
 <script lang="ts">
 	import { Tabs, TabsList, TabsTrigger, TabsContent } from '$lib/components/ui/tabs/index.js';
 	import BadgeList from './BadgeList.svelte';
@@ -115,7 +116,7 @@
 </script>
 
 <Tabs value="tools">
-	<TabsList class="flex-wrap h-auto gap-1 mb-4">
+	<TabsList variant="line" class="flex-wrap h-auto gap-x-1 gap-y-0.5 mb-4">
 		{#each tabs as { value, label }}
 			<TabsTrigger {value}>{label}</TabsTrigger>
 		{/each}

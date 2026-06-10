@@ -7,7 +7,7 @@
 	class={className}
 	width={size}
 	height={size}
-	viewBox="0 0 24 24"
+	viewBox="1.5 3 21 18"
 	fill="currentColor"
 	aria-hidden="true"
 >

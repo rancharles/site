@@ -3,8 +3,8 @@
 	import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '$lib/components/ui/tooltip/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import Github from '$lib/icons/Github.svelte';
-	import Youtube from '$lib/icons/Youtube.svelte';
-	import Discord from '$lib/icons/Discord.svelte';
+	// import Youtube from '$lib/icons/Youtube.svelte';
+	// import Discord from '$lib/icons/Discord.svelte';
 	import LinkedIn from '$lib/icons/LinkedIn.svelte';
 	import Mail from '$lib/icons/Mail.svelte';
 	import { SITE } from '$lib/config.js';
@@ -26,7 +26,7 @@
 		<img src="/mango_v3.svg" class="h-16 w-16 rounded-full" alt={SITE.owner.name} />
 		<div>
 			<div class="flex items-center gap-2 flex-wrap">
-				<h1 class="text-xl font-serif font-semibold text-foreground">{SITE.owner.name}</h1>
+				<h1 class="text-xl font-serif font-medium text-foreground">{SITE.owner.name}</h1>
 				<TooltipProvider>
 					<Tooltip>
 						<TooltipTrigger>
@@ -54,11 +54,11 @@
 				<Github size={15} />
 				GitHub
 			</Button>
-			<Button href="/redirect/youtube" variant="outline" size="sm">
+			<!-- <Button href="/redirect/youtube" variant="outline" size="sm">
 				<Youtube size={15} />
 				YouTube
-			</Button>
-			<Tooltip>
+			</Button> -->
+			<!-- <Tooltip>
 				<TooltipTrigger>
 					{#snippet child({ props })}
 						<Button {...props} variant="outline" size="sm" onclick={() => navigator.clipboard.writeText(SITE.social.discord.username)}>
@@ -68,7 +68,7 @@
 					{/snippet}
 				</TooltipTrigger>
 				<TooltipContent>@{SITE.social.discord.username} (click to copy)</TooltipContent>
-			</Tooltip>
+			</Tooltip> -->
 			<Button href="/redirect/linkedin" variant="outline" size="sm">
 				<LinkedIn size={15} />
 				LinkedIn

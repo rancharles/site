@@ -1,16 +1,14 @@
 <script lang="ts">
-	import { Button } from '$lib/components/ui/button/index.js';
-	import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '$lib/components/ui/tooltip/index.js';
+	import { Separator } from '$lib/components/ui/separator/index.js';
 	import Github from '$lib/icons/Github.svelte';
-	import Youtube from '$lib/icons/Youtube.svelte';
-	import Discord from '$lib/icons/Discord.svelte';
 	import LinkedIn from '$lib/icons/LinkedIn.svelte';
 	import Mail from '$lib/icons/Mail.svelte';
 	import { SITE } from '$lib/config.js';
 </script>
 
 <svelte:head>
-	<meta property="og:title" content="Home" />
+	<title>{SITE.name}</title>
+	<meta property="og:title" content={SITE.name} />
 	<meta property="og:description" content={SITE.description} />
 	<meta property="og:type" content="profile" />
 	<meta property="profile:first_name" content={SITE.owner.firstName} />
@@ -18,45 +16,52 @@
 	<meta property="profile:username" content="polarity" />
 </svelte:head>
 
-<div class="my-auto flex flex-col items-center text-center gap-6 py-16">
-	<div>
-		<h1 class="text-5xl font-serif font-bold tracking-tight text-foreground md:text-6xl">
-			{SITE.owner.name}
-		</h1>
-		<p class="mt-3 text-base text-muted-foreground">Student · Developer · Mathematician</p>
+<div class="py-10">
+
+	<!-- Profile header -->
+	<div class="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-8">
+		<div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shrink-0 overflow-hidden flex items-center justify-center">
+			<img
+				src="/charles.jpg"
+				alt={SITE.owner.name}
+				class="object-contain object-top"
+			/>
+		</div>
+		<div class="flex flex-col gap-1.5 sm:pt-1">
+			<h1 class="text-3xl font-display font-semibold text-foreground">{SITE.owner.name}</h1>
+			<p class="text-sm text-muted-foreground">Undergraduate Student at UBC</p>
+			<div class="flex items-center gap-3.5 mt-1.5">
+				<a href="/redirect/github" aria-label="GitHub" class="text-muted-foreground hover:text-foreground transition-colors">
+					<Github size={18} />
+				</a>
+				<a href="/redirect/linkedin" aria-label="LinkedIn" class="text-muted-foreground hover:text-foreground transition-colors">
+					<LinkedIn size={18} />
+				</a>
+				<a href="/redirect/email" aria-label="Email" class="text-muted-foreground hover:text-foreground transition-colors">
+					<Mail size={18} />
+				</a>
+			</div>
+		</div>
 	</div>
 
-	<TooltipProvider>
-		<div class="flex items-center gap-5">
-			<a href="/redirect/github" aria-label="GitHub" class="text-muted-foreground transition-colors hover:text-foreground">
-				<Github size={22} />
-			</a>
-			<a href="/redirect/youtube" aria-label="YouTube" class="text-muted-foreground transition-colors hover:text-foreground">
-				<Youtube size={22} />
-			</a>
-			<Tooltip>
-				<TooltipTrigger>
-					{#snippet child({ props })}
-						<button
-							{...props}
-							onclick={async () => await navigator.clipboard.writeText(SITE.social.discord.username)}
-							aria-label="Copy Discord username"
-							class="text-muted-foreground transition-colors hover:text-foreground cursor-pointer"
-						>
-							<Discord size={22} />
-						</button>
-					{/snippet}
-				</TooltipTrigger>
-				<TooltipContent>@{SITE.social.discord.username}</TooltipContent>
-			</Tooltip>
-			<a href="/redirect/linkedin" aria-label="LinkedIn" class="text-muted-foreground transition-colors hover:text-foreground">
-				<LinkedIn size={22} />
-			</a>
-			<a href="/redirect/email" aria-label="Email" class="text-muted-foreground transition-colors hover:text-foreground">
-				<Mail size={22} />
-			</a>
-		</div>
-	</TooltipProvider>
+	<Separator class="mb-8" />
 
-	<Button href="/about" variant="outline">About Me</Button>
+	<!-- Bio -->
+	<div class="space-y-5 text-[0.925rem] leading-relaxed text-muted-foreground">
+		<p>
+			Hi! I'm <span class="text-foreground font-medium">Charles</span>, an undergrad at the
+			<a href="https://ubc.ca" class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">University of British Columbia</a>
+			studying
+			<a href="https://you.ubc.ca/ubc_programs/computer-science-vancouver-bsc/" class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">Computer Science</a>
+			and
+			<a href="https://you.ubc.ca/ubc_programs/mathematics-vancouver-bsc/" class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">Mathematics</a>.
+		</p>
+		<p>
+            Currently, I'm working as a Machine Learning Research Intern on the LLM Reasoning team at <a href="https://github.com/huawei-noah" class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">Huawei Canada's Noah's Ark Lab</a>. I focus on deep learning architectures for <span class="text-foreground font-medium">few-shot reasoning</span> and <span class="text-foreground font-medium">test-time adaptation</span>. I'm also doing research in <span class="text-foreground font-medium">extremal combinatorics</span>, proving extensions of Erdős–Ko–Rado type intersection theorems.
+		</p>
+        <p>
+            On the side, I compete in competitive programming; I'm an <a href="https://icpc.cs.ubc.ca/team#2026" class="text-foreground underline underline-offset-4 decoration-border hover:decoration-foreground transition-colors">ICPC World Finalist</a> with the UBC team. I also run, read, and scroll a bit too much.
+		</p>
+	</div>
+
 </div>

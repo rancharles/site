@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { SITE } from '$lib/config.js';
 	import { Badge } from '$lib/components/ui/badge/index.js';
 	import { Separator } from '$lib/components/ui/separator/index.js';
 	import {
@@ -15,14 +16,14 @@
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	<title>{title} | {SITE.name}</title>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.12.0/dist/katex.min.css" crossorigin="anonymous" />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={description} />
 </svelte:head>
 
-<article class="w-full max-w-3xl py-8">
+<article class="w-full py-8">
 	<Breadcrumb class="mb-8">
 		<BreadcrumbList>
 			<BreadcrumbItem>
@@ -35,7 +36,7 @@
 		</BreadcrumbList>
 	</Breadcrumb>
 
-	<h1 class="text-3xl font-serif font-bold text-foreground">{title}</h1>
+	<h1 class="text-3xl font-serif font-semibold text-foreground">{title}</h1>
 	<p class="my-3 text-sm text-muted-foreground">
 		{#if published}
 			Published {formatDate(date)}
