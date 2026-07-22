@@ -21,11 +21,18 @@
 
 	<!-- Profile header -->
 	<div class="flex flex-col sm:flex-row items-start gap-6 sm:gap-8 mb-8">
-		<div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shrink-0 overflow-hidden flex items-center justify-center">
+		<div class="group relative w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-white shrink-0 overflow-hidden">
+			<!-- Casual shot (default) crossfades to the formal one on hover -->
 			<img
-				src="/charles.jpg"
+				src="/charles.png"
 				alt={SITE.owner.name}
-				class="object-contain object-top"
+				class="absolute inset-0 h-full w-full object-contain object-top transition-opacity duration-300 group-hover:opacity-0"
+			/>
+			<img
+				src="/charles_formal.jpg"
+				alt={SITE.owner.name}
+				aria-hidden="true"
+				class="absolute inset-0 h-full w-full object-contain object-top opacity-0 transition-opacity duration-300 group-hover:opacity-100"
 			/>
 		</div>
 		<div class="flex flex-col gap-1.5 sm:pt-1">
